@@ -1,0 +1,252 @@
+\documentclass{jsarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage[utf8]{inputenc}
+\usepackage{subcaption}
+
+\newcommand{\ita}{\textit}
+\newcommand{\ko}{\rm{k$\Omega$}}
+\newcommand{\om}{\rm$\Omega$}
+\newcommand{\nf}{\rm{nF}}
+
+\title{音声処理実験レポート}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\section{目的}
+
+コンピュータを用いた音声信号処理の基本的な分析方法を理解するため、
+以下についての実験を行う。
+
+\begin{itemize}
+    \item 離散フーリエ変換（Discrete Fourier Transform、DFT）
+    \item 窓関数（ハミング窓）
+    \item 音声データのスペクトル解析
+\end{itemize}
+
+特にDFTは信号に含まれる周波数成分を調べる信号処理の基本であり、
+重要な手法である。
+
+これらのプログラムの作成および実験を行い、
+基本的な信号処理手法と、
+音声の特徴および音声処理の基礎を学ぶ。
+
+最終的に、
+音声認識の基本的な考え方を身につける。
+
+\section{原理}
+
+\subsection{離散フーリエ変換}
+
+離散時間信号 $x_n$ の離散フーリエ変換は、
+
+\begin{equation}
+X_k
+=
+\sum_{n=0}^{N-1}
+x_n
+e^{-j\frac{2\pi nk}{N}}
+\end{equation}
+
+で定義される。
+
+また、
+逆変換は
+
+\begin{equation}
+x_n
+=
+\frac{1}{N}
+\sum_{k=0}^{N-1}
+X_k
+e^{j\frac{2\pi nk}{N}}
+\end{equation}
+
+である。
+
+DFTにより、
+時間領域の信号を周波数領域へ変換できる。
+
+周波数分解能 $\Delta f$ は、
+
+\begin{equation}
+\Delta f
+=
+\frac{f_s}{N}
+\end{equation}
+
+で与えられる。
+
+ここで、
+$f_s$ はサンプリング周波数、
+$N$ は分析サンプル数である。
+
+\subsection{非整数周期信号と窓関数}
+
+DFTでは、
+切り出した信号が周期的に繰り返されることを仮定している。
+
+そのため、
+信号周期の整数倍で切り出されていない場合、
+不連続が生じ、
+正しい周波数分析ができない。
+
+この問題を軽減するために窓関数を用いる。
+
+本実験ではハミング窓を用いた。
+
+ハミング窓は
+
+\begin{equation}
+w_n
+=
+(1-a)-a\cos\left(
+\frac{2\pi n}{N}
+\right)
+\end{equation}
+
+で表される。
+
+\subsection{音声スペクトル解析}
+
+DFTの実部を $A_k$、
+虚部を $B_k$ とすると、
+対数パワースペクトル $S_k$ は、
+
+\begin{equation}
+S_k
+=
+10\log_{10}
+\left(
+A_k^2+B_k^2
+\right)
+\end{equation}
+
+で与えられる。
+
+音声スペクトルを解析することで、
+音声に含まれる周波数成分の特徴を調べることができる。
+
+\section{実験方法}
+
+\subsection{DFTプログラムの作成}
+
+未完成であった dft.c の穴埋めを行い、
+DFTを計算するプログラムを完成させた。
+
+コンパイルには make コマンドを使用し、
+test\_dft を用いて動作確認を行った。
+
+\subsection{正弦波および余弦波のDFT}
+
+周波数1\,kHzの正弦波および余弦波について、
+DFTを行った。
+
+分析サンプル数を $N=16$ とし、
+test\_dft を用いて実部および虚部を求めた。
+
+また、
+gnuplot を用いて結果をグラフ化した。
+
+\subsection{混合正弦波のDFT}
+
+複数の正弦波を含む信号についてDFTを行った。
+
+使用した信号は以下の通りである。
+
+\begin{itemize}
+    \item sine\_1k+2k.ad
+    \item sine\_1k+3k.ad
+    \item sine\_1k+4k.ad
+    \item sine\_1k+2k0.25.ad
+    \item sine\_1k+2k0.5.ad
+\end{itemize}
+
+分析条件は、
+開始データ番号0、
+分析サンプル数 $N=16$ とした。
+
+\subsection{非整数周期信号の解析}
+
+1\,kHz の正弦波について、
+分析サンプル数を
+
+\begin{itemize}
+    \item $N=20$
+    \item $N=24$
+    \item $N=32$
+\end{itemize}
+
+としてDFTを行い、
+整数周期の場合との違いを確認した。
+
+\subsection{ハミング窓の生成}
+
+test\_hamming を用いて、
+窓幅 $N=256$ のハミング窓を生成した。
+
+また、
+gnuplot を用いてグラフ化した。
+
+\subsection{音声スペクトル解析}
+
+specAnly を用いて音声データのスペクトル解析を行った。
+
+分析窓幅は 32\,ms に固定し、
+分析開始時刻を適切に設定した。
+
+また、
+母音および子音の音声データについて、
+対数パワースペクトルを求めた。
+
+\section{実験結果・考察}
+
+\subsection{正弦波および余弦波のDFT}
+
+\subsection{混合正弦波のDFT}
+
+\subsection{非整数周期信号の解析}
+
+\subsection{ハミング窓}
+
+\subsection{音声スペクトル解析}
+
+\section{宿題}
+
+\subsection*{(WH1)}
+
+\subsection*{(WH2)}
+
+\subsection*{(WH3)}
+
+\subsection*{(WH4)}
+
+\section{結論}
+
+\section{感想}
+
+\section{参考文献}
+
+\begin{thebibliography}{99}
+
+\bibitem{ref1}
+津田卓雄，
+「音声処理実験テキスト」，
+2026年4月13日版．
+
+\end{thebibliography}
+
+\end{document}
