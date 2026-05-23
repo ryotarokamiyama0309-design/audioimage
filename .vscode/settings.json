@@ -1,34 +1,36 @@
 {
-  "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.latex.autoBuild.run": "never",
+    
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "uplatex -> dvipdfmx",
+            "tools": [
+                "uplatex",
+                "dvipdfmx"
+            ]
+        }
+    ],
 
-  "latex-workshop.latex.recipes": [
-    {
-      "name": "uplatex -> dvipdfmx",
-      "tools": [
-        "uplatex",
-        "dvipdfmx"
-      ]
-    }
-  ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "uplatex",
+            "command": "uplatex",
+            "args": [
+                "-interaction=nonstopmode",
+                "-synctex=1",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "dvipdfmx",
+            "command": "dvipdfmx",
+            "args": [
+                "%DOCFILE%.dvi"
+            ]
+        }
+    ],
 
-  "latex-workshop.latex.tools": [
-    {
-      "name": "uplatex",
-      "command": "uplatex",
-      "args": [
-        "-interaction=nonstopmode",
-        "-synctex=1",
-        "%DOC%"
-      ]
-    },
-    {
-      "name": "dvipdfmx",
-      "command": "dvipdfmx",
-      "args": [
-        "%DOCFILE%.dvi"
-      ]
-    }
-  ],
+    "workbench.colorTheme": "Dark+",
 
-  "latex-workshop.latex.recipe.default": "uplatex -> dvipdfmx"
+    "latex-workshop.latex.recipe.default": "uplatex -> dvipdfmx"
 }
