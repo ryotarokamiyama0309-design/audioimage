@@ -9,6 +9,7 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
 
 \newcommand{\ita}{\textit}
 \newcommand{\ko}{\rm{k$\Omega$}}
@@ -49,48 +50,74 @@
 
 \subsection{離散フーリエ変換}
 
-離散時間信号 $x_n$ の離散フーリエ変換は、
+$N$ 個の離散時間信号サンプル値 $x_n$ の離散フーリエ変換，
+およびその逆変換は，
+それぞれ
 
 \begin{equation}
-X_k
-=
+X_k =
 \sum_{n=0}^{N-1}
 x_n
 e^{-j\frac{2\pi nk}{N}}
 \end{equation}
 
-で定義される。
-
-また、
-逆変換は
-
 \begin{equation}
-x_n
-=
+x_n =
 \frac{1}{N}
 \sum_{k=0}^{N-1}
 X_k
 e^{j\frac{2\pi nk}{N}}
 \end{equation}
 
-である。
+と定義される。
 
-DFTにより、
-時間領域の信号を周波数領域へ変換できる。
+ただし，
+$n=0,1,\cdots,N-1$ は時刻に対応したインデックス，
+$k=0,1,\cdots,N-1$ は周波数に対応したインデックスである。
 
-周波数分解能 $\Delta f$ は、
+入力信号 $x_n$ を複素信号として，
+式(1)に従って $X_k$ を計算する。
+
+$x_n$ を実部 $a_n$，
+虚部 $b_n$ を持つ複素信号とすると，
 
 \begin{equation}
-\Delta f
-=
-\frac{f_s}{N}
+x_n=a_n+jb_n
 \end{equation}
 
-で与えられる。
+となる。
 
-ここで、
-$f_s$ はサンプリング周波数、
-$N$ は分析サンプル数である。
+式(3)を式(1)へ代入すると，
+
+\begin{align}
+X_k
+&=
+\sum_{n=0}^{N-1}
+(a_n+jb_n)
+e^{-j\frac{2\pi nk}{N}}
+\\
+&=
+\sum_{n=0}^{N-1}
+(a_n+jb_n)
+\cos\left(
+\frac{2\pi nk}{N}
+\right)
+\nonumber
+\\
+&\quad
+-j
+\sum_{n=0}^{N-1}
+(a_n+jb_n)
+\sin\left(
+\frac{2\pi nk}{N}
+\right)
+\\
+&=
+A_k+jB_k
+\end{align}
+
+となり，
+$X_k$ もやはり複素数である。
 
 \subsection{非整数周期信号と窓関数}
 
@@ -139,6 +166,7 @@ A_k^2+B_k^2
 音声に含まれる周波数成分の特徴を調べることができる。
 
 \section{実験方法}
+
 
 \subsection{DFTプログラムの作成}
 
@@ -212,9 +240,117 @@ specAnly を用いて音声データのスペクトル解析を行った。
 
 \section{実験結果・考察}
 
-\subsection{正弦波および余弦波のDFT}
+\subsection{報告事項(1-1)}
+実部 $A_k$ と虚部 $B_k$ は，
 
-\subsection{混合正弦波のDFT}
+\begin{equation}
+A_k
+=
+\sum_{n=0}^{N-1}
+\left(
+a_n\cos\frac{2\pi nk}{N}
++
+b_n\sin\frac{2\pi nk}{N}
+\right)
+\end{equation}
+
+\begin{equation}
+B_k
+=
+\sum_{n=0}^{N-1}
+\left(
+b_n\cos\frac{2\pi nk}{N}
+-
+a_n\sin\frac{2\pi nk}{N}
+\right)
+\end{equation}
+である。
+
+\subsection{報告事項(1-2)}
+以下に作成したdft.cのソースコードを示す。
+\begin{verbatim}
+for (k = 0; k < N; k++) {
+    yr[k] = 0.0;
+    yi[k] = 0.0;
+}
+
+for (k = 0; k < N; k++) {
+    for (n = 0; n < N; n++) {
+        double theta = 2.0 * M_PI * k * n / N;
+
+        yr[k] += xr[n] * cos(theta)
+               + xi[n] * sin(theta);
+
+        yi[k] += xi[n] * cos(theta)
+               - xr[n] * sin(theta);
+    }
+}
+\end{verbatim}
+作成したDFTプログラムでは、
+まず出力配列 $yr[k]$、$yi[k]$ を0で初期化した。
+その後、各周波数インデックス $k$ について、
+すべての時刻インデックス $n$ に対する和を計算した。
+実部と虚部は報告事項(1-1)で求めた $A_k$、$B_k$ の式に対応しており、
+それぞれ配列 $yr[k]$、$yi[k]$ に格納される。
+
+\subsection{報告事項(1-3)}
+以下に周波数 $1 \text{kHz} $の余弦波のDFTの結果を示す。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{cos_dft.png}
+    \caption{$N=20$}
+\end{figure}
+
+また、余弦波と比較するため正弦波のDFTの結果も以下に示す。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{sin_dft.png}
+    \caption{$N=20$}
+\end{figure}
+
+余弦波では、実部の $k=1$ および $k=15$ に大きな値が現れ、
+虚部はほぼ0となった。
+一方、正弦波のDFTでは、
+実部はほぼ0となり、
+虚部の $k=1$ および $k=15$ に大きな値が現れた。
+これは、
+DFTの実部 $A_k$ が余弦関数との積和，
+虚部 $B_k$ が正弦関数との積和によって計算されるためである。
+そのため，
+入力信号が余弦波の場合は実部に大きな値が現れ，
+虚部はほぼ0となり、
+入力信号が正弦波の場合は虚部に大きな値が現れ，
+実部はほぼ0となる。
+実験結果はこの理論式から予想される結果と一致してることが分かる。
+
+
+\subsection{報告事項(1-4)}
+5種類の混合正弦波の DFT の結果を以下に示す。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{mix_1k2k.png}
+    \caption{$1\text{kHz}$と$2\text{kHz}$の混合波のDFT(振幅比 1:1)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{mix_1k3k.png}
+    \caption{$1\text{kHz}$と$3\text{kHz}$の混合波のDFT(振幅比 1:1)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{mix_1k4k.png}
+    \caption{$1\text{kHz}$と$4\text{kHz}$の混合波のDFT(振幅比 1:1)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{mix_1k2k025.png}
+    \caption{$1\text{kHz}$と$2\text{kHz}$の混合波のDFT(振幅比 1:0.25)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{mix_1k2k05.png}
+    \caption{$1\text{kHz}$と$2\text{kHz}$の混合波のDFT(振幅比 1:0.5)}
+\end{figure}
 
 \subsection{非整数周期信号の解析}
 報告事項（２−１）
