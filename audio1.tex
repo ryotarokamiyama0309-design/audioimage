@@ -570,6 +570,36 @@ DFTで正しく周波数解析を行うためには、
 
 
 \subsection{報告事項(3-1)}
+"o"と"ro"の音声解析を行った。
+以下にこれらの音声波形を示す。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{o_waveform.png}
+    \caption{"o"の音声波形}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{ro_waveform.png}
+    \caption{"ro"の音声波形}
+\end{figure}
+
+これらの音声波形から、
+"o"の分析開始時刻は$320\,\text{ms}$,"ro"の分析開始時刻は$200\,\text{ms}$と$320\,\text{ms}$に設定してスペクトル解析を行った。
+以下にその結果を示す。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{o_spec.png}
+    \caption{/o/の対数パワースペクトル (使用音声ファイル o.ad,分析開始時刻 $320\,\text{ms}$,分析窓幅 $32\,\text{ms}$)}
+\end{figure}\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{ro_200_spec.png}
+    \caption{/o/の対数パワースペクトル (使用音声ファイル ro.ad,分析開始時刻 $200\,\text{ms}$,分析窓幅 $32\,\text{ms}$)}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{ro_spec.png}
+    \caption{/o/の対数パワースペクトル (使用音声ファイル ro.ad,分析開始時刻 $320\,\text{ms}$,分析窓幅 $32\,\text{ms}$)}
+\end{figure}
 
 \section{宿題}
 
