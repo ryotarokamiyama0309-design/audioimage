@@ -206,7 +206,7 @@ gnuplot を用いて結果をグラフ化した。
 分析サンプル数 $N=16$ とした。
 
 \subsection{追加課題}
-未知の混合正弦波に対して、サンプル数を$N=32$とし、DTTを行った。
+未知の混合正弦波に対して、サンプル数を$N=32$とし、DFTを行った。
 
 \subsection{非整数周期信号の解析}
 
@@ -354,61 +354,224 @@ DFTの実部 $A_k$ が余弦関数との積和，
     \caption{$1\text{kHz}$と$2\text{kHz}$の混合波のDFT(振幅比 1:0.5)}
 \end{figure}
 
-入力信号が正弦波であるため，
+入力信号が正弦波であるため、
 どの場合においても虚部に大きな値が現れた。
-また，
-振幅が等しく周波数の異なる混合波では，
+また、
+振幅が等しく周波数の異なる混合波では、
 それぞれの周波数に対応するサンプル番号に大きな値が現れていた。
-さらに，
-振幅比の異なる混合波では，
+さらに、
+振幅比の異なる混合波では、
 DFT結果のピーク値も入力信号の振幅比に対応して変化していた。
-このことから，
+このことから、
 DFTによって入力信号に含まれる周波数成分およびその強さを正しく抽出できていることが確認できた。
 
 \subsection{報告事項(1-5)}
+以下に未知の正弦混合波のDFTの結果を示す。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{sub15.png}
+    \caption{未知の正弦混合波}
+\end{figure}
+
+虚部のDFT結果より，
+$k=2$，$k=8$，$k=24$，$k=30$ に大きな値が現れた。
+
+DFTでは $k$ と $N-k$ が対になって現れるため，
+$k=2$ と $k=30$，
+$k=8$ と $k=24$ はそれぞれ同じ周波数成分を表している。
+
+したがって，
+未知信号には $k=2$ および $k=8$ に対応する周波数成分が含まれていることが分かる。
+
+サンプリング周波数を $f_s=16\,\mathrm{kHz}$，
+DFTサイズを $N=32$ とすると，
+
+\begin{equation}
+f=\frac{k}{N}f_s
+\end{equation}
+
+より，
+
+\begin{equation}
+f_1=\frac{2}{32}\times16000
+=1000\,\mathrm{Hz}
+\end{equation}
+
+\begin{equation}
+f_2=\frac{8}{32}\times16000
+=4000\,\mathrm{Hz}
+\end{equation}
+
+となる。
+
+また，虚部のピーク値は
+
+\begin{equation}
+|B_2|=8.316027，
+\quad
+|B_8|=8.315857
+\end{equation}
+
+であった。
+
+正弦波成分の振幅を $A$ とすると，
+その成分は
+
+\begin{equation}
+x_n
+=
+A\sin\left(
+\frac{2\pi kn}{N}
+\right)
+\end{equation}
+
+と表せる。
+
+DFTの虚部は
+
+\begin{equation}
+B_k
+=
+-
+\sum_{n=0}^{N-1}
+x_n
+\sin\left(
+\frac{2\pi nk}{N}
+\right)
+\end{equation}
+
+であるため，
+同じ周波数成分に対しては
+
+\begin{equation}
+B_k
+=
+-
+A
+\sum_{n=0}^{N-1}
+\sin^2\left(
+\frac{2\pi nk}{N}
+\right)
+\end{equation}
+
+となる。
+
+ここで，
+$\sin^2$ の平均値は $1/2$ であるため，
+
+\begin{equation}
+\sum_{n=0}^{N-1}
+\sin^2\left(
+\frac{2\pi nk}{N}
+\right)
+=
+\frac{N}{2}
+\end{equation}
+
+となる。
+
+したがって，
+
+\begin{equation}
+|B_k|
+=
+\frac{NA}{2}
+\end{equation}
+
+より，
+
+\begin{equation}
+A
+=
+\frac{2|B_k|}{N}
+\end{equation}
+
+で求められる。
+
+したがって，
+
+\begin{equation}
+A_1=
+\frac{2\times8.316027}{32}
+=
+0.5197516875
+\end{equation}
+
+\begin{equation}
+A_2=
+\frac{2\times8.315857}{32}
+=
+0.5197410625
+\end{equation}
+
+となる。
+
+よって，
+未知信号には，
+周波数 $1\,\mathrm{kHz}$，振幅約 $0.520$ の正弦波と，
+周波数 $4\,\mathrm{kHz}$，振幅約 $0.520$ の正弦波が含まれていると推定できる。
+
+それか
+
+また、
+各ピーク値はほぼ同じ大きさであったため、未知の信号は
+振幅比1:1の$1\,\mathrm{kHz}$と$4\,\mathrm{kHz}$の正弦混合波であると考えられる。
 
 
-\subsection{非整数周期信号の解析}
-報告事項（２−１）
-$N=20$のとき
+
+\subsection{報告事項(2-1)}
+以下に各$N$に対するDFTの結果を示す。
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{sine_1k_N20.png}
     \caption{$N=20$}
 \end{figure}
-$N=24$のとき
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{sine_1k_N24.png}
     \caption{$N=24$}
 \end{figure}
-$N=32$のとき
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{sine_1k_N32.png}
     \caption{$N=32$}
 \end{figure}
-\subsection{ハミング窓}
-報告事項（２−２）
-$N=256$
+
+$N=20$ および $N=24$ の結果では、
+$k=1$ 付近だけでなく、
+複数のサンプル番号に成分が広がって現れた。
+
+これは、
+1\,kHz の正弦波を $N=20$ または $N=24$ で切り出した場合、
+切り出した区間が信号周期の整数倍にならないためである。
+DFTでは切り出した信号が周期的に繰り返されることを仮定しているため、
+区間の端で不連続が生じ、
+本来の周波数成分以外にも成分が現れたと考えられる。
+
+一方、
+$N=32$ の場合は、
+1\,kHz の正弦波がちょうど2周期分含まれるため、
+主に $k=2$ および $k=30$ に大きな値が現れた。
+このため、
+$N=32$ では1\,kHz の成分を比較的正しく抽出できていることが分かる。
+
+以上より、
+DFTで正しく周波数解析を行うためには、
+信号周期の整数倍となる区間を切り出すことが重要である。
+
+\subsection{報告事項(2-2)}
+ハミング窓 ($N = 256$) をグラフで表示したものを以下に示す。
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{hamming256.png}
     \caption{$N=32$}
 \end{figure}
-\subsection{音声スペクトル解析}
+グラフから、中央のサンプル数128で最大になり、両端に向かって滑らかに減少する形となっていることが分かる。
+
+
+\subsection{報告事項(3-1)}
 
 \section{宿題}
-
-\subsection*{(WH1)}
-
-\subsection*{(WH2)}
-
-\subsection*{(WH3)}
-
-\subsection*{(WH4)}
-
-\section{結論}
 
 \section{感想}
 
