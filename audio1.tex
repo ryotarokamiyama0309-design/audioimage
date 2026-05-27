@@ -650,7 +650,7 @@ $320\,\mathrm{ms}$ に設定してスペクトル解析を行った。
 \end{figure}
 
 
-これらの音声波形から分析開始時刻を設定し、スペクトル解析を行った。
+これらの音声波形から分析開始時刻をすべて$320\,\mathrm{ms}$と設定し、スペクトル解析を行った。
 以下にその結果を示す。
 \begin{figure}[H]
     \centering
@@ -668,6 +668,67 @@ $320\,\mathrm{ms}$ に設定してスペクトル解析を行った。
     \caption{Sub3-3-3.adの音声スペクトル}
 \end{figure}
 
+つぎにこれらの対数パワースペクトルから、スペクトル包絡をフリーハンドで求めた。
+以下にスペクトル包絡を書き込んだ図を示す。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{ファイル_000.png}
+    \caption{Sub3-3-1.adのスペクトル包絡}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{ファイル_001.png}
+    \caption{Sub3-3-2.adのスペクトル包絡}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{ファイル_002.png}
+    \caption{Sub3-3-3.adのスペクトル包絡}
+\end{figure}
+これらのスペクトル包絡から第１フォルマント周波数と第２フォルマント周波数を読み取った結果を以下にまとめた。
+\begin{table}[H]
+    \centering
+    \caption{未知音声データのフォルマント周波数}
+    \begin{tabular}{c c c}
+        \hline
+        音声データ & $F_1$ [Hz] & $F_2$ [Hz] \\
+        \hline
+        Sub3-3-1 & 500 & 800 \\
+        Sub3-3-2 & 300 & 1000 \\
+        Sub3-3-3 & 450 & 2000 \\
+        \hline
+    \end{tabular}
+\end{table}
+得られたフォルマント周波数対 (F1, F2) を、日本語 5 母音 (a, e, i, o, u) の典型的なフォ
+ルマント分布 とともに図示した。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{formant2.png}
+    \caption{フォルマント分布}
+\end{figure}
+図27より，
+未知音声データのフォルマント周波数対 $(F_1,F_2)$ は，
+日本語5母音の典型的なフォルマント分布付近に位置していることが分かる。
+
+Sub3-3-1 は，
+/o/ の位置に最も近い場所に存在している。
+そのため，
+Sub3-3-1 は母音 /o/ であると推定した。
+
+Sub3-3-2 は，
+/u/ に比較的近い位置に存在している。
+したがって，
+Sub3-3-2 は母音 /u/ であると推定した。
+
+Sub3-3-3 は，
+/e/ および /i/ に近い位置に存在しているが，
+特に /e/ の位置に近いことから，
+Sub3-3-3 は母音 /e/ であると推定した。
+
+以上より，
+フォルマント周波数を用いることで，
+未知音声データの母音を識別できることが確認できた。
 
 \section{宿題}
 
