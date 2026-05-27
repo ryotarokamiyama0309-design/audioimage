@@ -568,38 +568,106 @@ DFTで正しく周波数解析を行うためには、
 \end{figure}
 グラフから、中央のサンプル数128で最大になり、両端に向かって滑らかに減少する形となっていることが分かる。
 
-
 \subsection{報告事項(3-1)}
-"o"と"ro"の音声解析を行った。
+
+"o" と "ro" の音声解析を行った。
 以下にこれらの音声波形を示す。
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{o_waveform.png}
-    \caption{"o"の音声波形}
+    \caption{"o" の音声波形}
 \end{figure}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{ro_waveform.png}
-    \caption{"ro"の音声波形}
+    \caption{"ro" の音声波形}
 \end{figure}
 
-これらの音声波形から、
-"o"の分析開始時刻は$320\,\text{ms}$,"ro"の分析開始時刻は$200\,\text{ms}$と$320\,\text{ms}$に設定してスペクトル解析を行った。
+音声波形を確認した結果，
+"o" の分析開始時刻は $320\,\mathrm{ms}$，
+"ro" の分析開始時刻は $250\,\mathrm{ms}$ および
+$320\,\mathrm{ms}$ に設定してスペクトル解析を行った。
 以下にその結果を示す。
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{o_spec.png}
-    \caption{/o/の対数パワースペクトル (使用音声ファイル o.ad,分析開始時刻 $320\,\text{ms}$,分析窓幅 $32\,\text{ms}$)}
-\end{figure}\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\linewidth]{ro_200_spec.png}
-    \caption{/o/の対数パワースペクトル (使用音声ファイル ro.ad,分析開始時刻 $200\,\text{ms}$,分析窓幅 $32\,\text{ms}$)}
+    \caption{/o/ の対数パワースペクトル
+    (使用音声ファイル: o.ad，
+    分析開始時刻: $320\,\mathrm{ms}$，
+    分析窓幅: $32\,\mathrm{ms}$)}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{ro_250_spec.png}
+    \caption{/ro/ の対数パワースペクトル
+    (使用音声ファイル: ro.ad，
+    分析開始時刻: $250\,\mathrm{ms}$，
+    分析窓幅: $32\,\mathrm{ms}$)}
+\end{figure}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{ro_spec.png}
-    \caption{/o/の対数パワースペクトル (使用音声ファイル ro.ad,分析開始時刻 $320\,\text{ms}$,分析窓幅 $32\,\text{ms}$)}
+    \caption{/ro/ の対数パワースペクトル
+    (使用音声ファイル: ro.ad，
+    分析開始時刻: $320\,\mathrm{ms}$，
+    分析窓幅: $32\,\mathrm{ms}$)}
 \end{figure}
+
+\subsection{報告事項(3-2)}
+音声波形を比較すると，立ち上がりや終わりの時間は大きく変わらないが，
+"ro" は子音を含んでいるため，立ち上がり部分の振幅が "o" と比べて
+小さくなっていることが分かる。
+
+また、"o" の対数パワースペクトルでは，低周波側に強いピークが確認できた。
+一方，"ro" の $250\,\mathrm{ms}$ 付近では，広い周波数帯域に成分が分布していた。
+これは子音 "r" を含むためであると考えられる。
+さらに，"ro" の $320\,\mathrm{ms}$ 付近では，母音 "o" の成分が支配的となり，
+"o" 単体の場合に近いスペクトルとなった。
+このことから，母音と子音ではスペクトル特性が異なり，同じ音声でも解析する時間位置によって周波数特性が変化することが確認できた。
+
+
+\subsection{報告事項(3-3)}
+各音声ファイルの音声波形を以下に示す。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{sub331_wave.png}
+    \caption{Sub3-3-1.adの音声波形}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{sub332_wave.png}
+    \caption{Sub3-3-2.adの音声波形}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{sub333_wave.png}
+    \caption{Sub3-3-3.adの音声波形}
+\end{figure}
+
+
+これらの音声波形から分析開始時刻を設定し、スペクトル解析を行った。
+以下にその結果を示す。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{sub331_spec.png}
+    \caption{Sub3-3-1.adの音声スペクトル}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{sub332_spec.png}
+    \caption{Sub3-3-2.adの音声スペクトル}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{sub333_spec.png}
+    \caption{Sub3-3-3.adの音声スペクトル}
+\end{figure}
+
 
 \section{宿題}
 
