@@ -23,6 +23,7 @@
 % \usepackage{xcolor}
 \usepackage[dvipdfmx, dvipsnames]{xcolor}
 \usepackage{setspace}
+\usepackage{float}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % Format
@@ -54,7 +55,7 @@
 一般的に、デジタルのフルカラー画像は三次元離散時間信号である。
 それは、三つの二次元離散時間信号から成り、それらは赤・緑・青の色成分をそれぞれ表しておりチャンネルと呼ばれる。
 その二次元離散時間信号は、縦と横の軸からなり、それぞれの要素は画素と呼ばれ空間的な座標における色成分の大きさを表している。
-画素値は、一般的に非符号付き８bit整数で保存されているが、処理する過程では$[0, 1]$の範囲の16bit浮動小数点で扱う場合が多い。
+画素値は、一般的に非符号付き8bit整数で保存されているが、処理する過程では$[0, 1]$の範囲の16bit浮動小数点で扱う場合が多い。
 簡単のために、本実験ではフルカラー画像ではなく一チャンネルのみのグレースケール画像について議論する。
 以降、全資料においてデジタルのグレースケール画像を単に画像と表記し、また離散時間の表記を省略する。
 
@@ -319,29 +320,27 @@ $\mathbf{N}$の要素値は、各要素間において独立であり、ある�
 
 \section{方法}
 \subsection{一次元信号の周波数解析}\label{sec:1-1}
-周波数$\alpha=$\rainn{}をサイン関数に適用し一次元信号（横ベクトル）$\bm{x}$を作成する。
+周波数$\alpha=\frac{1}{8}\pi$をサイン関数に適用し一次元信号（横ベクトル）$\bm{x}$を作成する。
 次に、作成した一次元信号を縦方向に引き延ばして正方の画像$\mathbf{X}$に拡張する。
 最後に、DFTを用いて$\bm{x}$の周波数振幅特性を計算しグラフ$A$に表示する。
 
-また、\ref{sec:UpDonwsampling}節を基にして、$\mathbf{X}$を倍率$\gamma=$\rainn{}でアップサンプリングを行い$\mathbf{X}_{up}$を作成する。
+また、\ref{sec:UpDonwsampling}節を基にして、$\mathbf{X}$を倍率$\gamma= 2$でアップサンプリングを行い$\mathbf{X}_{up}$を作成する。
 また、$\gamma$でダウンサンプリングを行い$\mathbf{X}_{down}$を作成する。
 上記と同様に、それらから一次元信号$\bm{x}_{up}$と$\bm{x}_{down}$を抜き出し、DFTを用いて周波数振幅特性を計算しグラフ$A_{up}$と$A_{down}$に表示する。
 
-また、上記処理を$\alpha=$\rainn{}と$\gamma=$\rainn{}、$\alpha=$\rainn{}と$\gamma=$\rainn{}において行う。
+また、上記処理を$\alpha=\frac{1}{4}$と$\gamma=2$、$\alpha=\frac{1}{16}$と$\gamma=2$において行う。
 
 
 \subsection{二次元信号の周波数解析}\label{sec:1-2}
-画像\rainn{}を読み込み$\mathbf{X}$とする。
+画像kodak001を読み込み$\mathbf{X}$とする。
 次に、式(\ref{eq:DCT})を基にして、$M=4$のDCT変換行列$\mathbf{D}$を作成する。
 最後に、式(\ref{eq:DCTtran})と$\mathbf{D}$を用いて$\mathbf{X}$を変換し、変換後の画像$\mathbf{Y}$を算出する。
 ここで、$\mathbf{Y}$はブロックモードのままであるのでサブバンドモードに変換する。
 
-また、上記処理を画像\rainn{}と画像\rainn{}において行う。
+また、上記処理を画像kodak002と画像kodac003において行う。
 
 
 \subsection{画像の逆変換}\label{sec:1-3}
-\noindent
-\sizi{この節は達成した者のみが任意で記述する。つまり省略しても構わない。}
 
 \ref{sec:1-2}節の変換後の画像$\mathbf{Y}$に対して、式(\ref{eq:DCTtran_inv})に沿って逆変換を行い、逆変換後の画像$\mathbf{Z}$を算出する。
 また、以下の式で入力画像$\mathbf{X}$と$\mathbf{Z}$の誤差$L$を計算する。
@@ -355,16 +354,16 @@ $\mathbf{N}$の要素値は、各要素間において独立であり、ある�
 ここで、$H$と$W$はそれぞれ$\mathbf X$の縦と横の長さを表し、$x_{ij}$と$z_{ij}$はそれぞれ$\mathbf{X}$と$\mathbf{Z}$の$(i,j)$要素を表している。
 
 \subsection{ガウシアンフィルタによる画像のぼかし}\label{sec:2-1}
-式(\ref{eq:Gaussian})を基にして、フィルタ長$k=$\rainn{}と標準偏差$\sigma=$\rainn{}を用いて一次元のガウシアンフィルタ$\bm{g}$を作成する。
+式(\ref{eq:Gaussian})を基にして、フィルタ長$k=7$と標準偏差$\sigma=4$を用いて一次元のガウシアンフィルタ$\bm{g}$を作成する。
 また、DFTを用いて$\bm{g}$の周波数振幅特性を計算しグラフ$G$に表示する。
 次に、$k$と$\sigma$を用いて二次元のガウシアンフィルタ$\mathbf{G}$を作成する。
-最後に、画像\rainn{}を読み込み$\mathbf{X}$とし、$\mathbf{X}$に$\mathbf{G}$を畳み込んでフィルタリング後の出力画像$\mathbf{Y}$を算出する。
+最後に、画像kodak001を読み込み$\mathbf{X}$とし、$\mathbf{X}$に$\mathbf{G}$を畳み込んでフィルタリング後の出力画像$\mathbf{Y}$を算出する。
 
-また、上記処理を以下の組み合わせで行う
+また、上記処理を以下の組み合わせで行う。
 \begin{itemize}
-	\item $k=$\rainn{}、$\sigma=$\rainn{}、画像\rainn{}。
-	\item $k=$\rainn{}、$\sigma=$\rainn{}、画像\rainn{}。
-	\item $k=$\rainn{}、$\sigma=$\rainn{}、画像\rainn{}。
+	\item $k=7$、$\sigma=4$、画像kodak001。
+	\item $k=7$、$\sigma=2$、画像kodak001。
+	\item $k=7$、$\sigma=1$、画像kodak001。
 \end{itemize}
 
 
@@ -439,137 +438,380 @@ $\mathbf{N}$の要素値は、各要素間において独立であり、ある�
 \section{結果と考察}
 \subsection{一次元信号の周波数解析}
 ここに、\ref{sec:1-1}節の結果と考察を示す。
-図に、$\alpha=$\rainn{}における画像$\mathbf X$と周波数振幅特性のグラフ$A$をそれぞれ示す。
-また図に、$\gamma=$\rainn{}においてアップサンプリングとダウンサンプリングした画像$\mathbf{X}_{up}$と$\mathbf{X}_{down}$、それらの周波数振幅特性のグラフ$A_{up}$と$A_{down}$をそれぞれ示す。
-\sizi{これらの図に対する考察を述べる。}
-
-\noindent
-\sizi{同様に、他の設定における結果の表示とそれに対する考察を述べる。}
-
+図に、$\alpha=\frac{1}{8}\pi$における画像$\mathbf X$と周波数振幅特性のグラフ$A$をそれぞれ示す。
+また図に、$\gamma=2$においてアップサンプリングとダウンサンプリングした画像$\mathbf{X}_{up}$と$\mathbf{X}_{down}$、それらの周波数振幅特性のグラフ$A_{up}$と$A_{down}$をそれぞれ示す。
 %%%%%%%%%%%%%%%%%%
-% \begin{figure}[t]
-% 	\centering
-% 	\begin{tabular}{cc}
-% 		%%%%%%%%%
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}
-% 		\vspace{-2pt}\\
-% 		%%%%%%%%%
-% 		(a) $\mathbf{X}$&\hspace{+12pt}
-% 		(b) $A$\\
-% 		%%%%%%%%%
-% 	\end{tabular}
-% 	\caption{サイン関数による画像と周波数振幅特性}
-% 	\label{fig:1-1-1a}
-% \end{figure}
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{wave_normal8.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_normal_freq8.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}$&\hspace{+12pt}
+ 		(b) $A$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{サイン関数による画像と周波数振幅特性}
+ 	\label{fig:1-1-1a}
+ \end{figure}
 %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%
-% \begin{figure}[t]
-% 	\centering
-% 	\begin{tabular}{cccc}
-% 		%%%%%%%%%
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}
-% 		\vspace{-2pt}\\
-% 		%%%%%%%%%
-% 		(a) $\mathbf{X}_{up}$&\hspace{+12pt}
-% 		(b) $A_{up}$&\hspace{+12pt}
-% 		(c) $\mathbf{X}_{down}$&\hspace{+12pt}
-% 		(d) $A_{down}$\\
-% 		%%%%%%%%%
-% 	\end{tabular}
-% 	\caption{アップサンプリングとダウンサンプリング後の画像と周波数振幅特性}
-% 	\label{fig:1-1-1b}
-% \end{figure}
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cccc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{wave_up8.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_up_freq8.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_down8.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_down_freq8.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}_{up}$&\hspace{+12pt}
+ 		(b) $A_{up}$&\hspace{+12pt}
+ 		(c) $\mathbf{X}_{down}$&\hspace{+12pt}
+ 		(d) $A_{down}$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{アップサンプリングとダウンサンプリング後の画像と周波数振幅特性}
+ 	\label{fig:1-1-1b}
+ \end{figure}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%
+初めにピークがどこで現れるかを計算した。
+$\alpha=\frac{1}{8}\pi$では周波数が $1/8$ であるため、
+ピークは0.25付近に現れると予想される。また、
+ダウンサンプリング後では周波数が2倍となるためピークは0.5付近
+に現れると考えられる。一方、アップサンプリング後では周波数が
+半分となるため0.125付近にピークが現れ、さらに0.875付近にも
+ピークが現れると予想される。
+
+実際の結果を見ると、図のピークが現れた位置と計算結果が
+一致していることが分かった。また、ピーク強度は $A$ および $A_{up}$ 
+では約$42\,\text{db}$であったのに対し、$A_{down}$ では約$36\,\text{db} $となった。
+
+画像について見ると、アップサンプリング後では元画像より縞模様の周期が
+長くなり、横方向に引き伸ばされたような見た目となった。一方、
+ダウンサンプリング後では縞模様の周期が短くなり、元画像より細かい縞模様となった。
+
+次に、$\alpha=\frac{1}{4}$と$\gamma=2$としたときの結果を示す。
+%%%%%%%%%%%%%%%%%%
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{wave_normal4.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_normal_freq4.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}$&\hspace{+12pt}
+ 		(b) $A$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{サイン関数による画像と周波数振幅特性}
+ 	\label{fig:1-1-2a}
+ \end{figure}
+%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cccc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{wave_up4.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_up_freq4.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_down4.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_down_freq4.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}_{up}$&\hspace{+12pt}
+ 		(b) $A_{up}$&\hspace{+12pt}
+ 		(c) $\mathbf{X}_{down}$&\hspace{+12pt}
+ 		(d) $A_{down}$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{アップサンプリングとダウンサンプリング後の画像と周波数振幅特性}
+ 	\label{fig:1-1-2b}
+ \end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+
+さらに、$\alpha=\frac{1}{16}$と$\gamma=2$としたときの結果を示す。
+%%%%%%%%%%%%%%%%%%
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{wave_normal16.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_normal_freq16.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}$&\hspace{+12pt}
+ 		(b) $A$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{サイン関数による画像と周波数振幅特性}
+ 	\label{fig:1-1-3a}
+ \end{figure}
+%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cccc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{wave_up16.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_up_freq16.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_down16.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{wave_down_freq16.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}_{up}$&\hspace{+12pt}
+ 		(b) $A_{up}$&\hspace{+12pt}
+ 		(c) $\mathbf{X}_{down}$&\hspace{+12pt}
+ 		(d) $A_{down}$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{アップサンプリングとダウンサンプリング後の画像と周波数振幅特性}
+ 	\label{fig:1-1-3b}
+ \end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+
+
 \subsection{二次元信号の周波数解析}
 ここに、\ref{sec:1-2}節の結果と考察を示す。
 図に、入力画像$\mathbf{X}$とそのDCTを適用した後の出力画像$\mathbf{Y}$をそれぞれ示す。
-\sizi{これらの図に対する考察を述べる。}
-
-\noindent
-\sizi{同様に、他の設定における結果の表示とそれに対する考察を述べる。}
 
 %%%%%%%%%%%%%%%%%%
-% \begin{figure}[t]
-% 	\centering
-% 	\begin{tabular}{cc}
-% 		%%%%%%%%%
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}
-% 		\vspace{-2pt}\\
-% 		%%%%%%%%%
-% 		(a) $\mathbf{X}$&\hspace{+12pt}
-% 		(b) $\mathbf{Y}$\\
-% 		%%%%%%%%%
-% 	\end{tabular}
-% 	\caption{入力画像とDCT後の出力画像}
-% 	\label{fig:1-2-1}
-% \end{figure}
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{kodak001_DCT.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}$&\hspace{+12pt}
+ 		(b) $\mathbf{Y}$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{入力画像とDCT後の出力画像(画像:kodak001)}
+ 	\label{fig:1-2-1}
+ \end{figure}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%
+
+まず左上のブロックが白くなっており、画像の情報の多くが
+低周波成分に集中していることが分かる。
+また、縦方向および横方向の周波数成分のブロックでは
+、壁とドアまたは窓との境界部分に白い線が現れていた。
+これは境界付近で画素値が変化しているためである。
+一方で、これらの白い線は低周波領域で強く現れ、高周波領域へ移るにつれて徐々に薄くなっていた。
+よって、これらの境界は比較的なだらかな変化として表現されており、高周波成分の寄与は小さいことが分かる。
+
+%%%%%%%%%%%%%%%%%%
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{kodak002.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{kodak002_DCT.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}$&\hspace{+12pt}
+ 		(b) $\mathbf{Y}$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{入力画像とDCT後の出力画像(画像:kodak002)}
+ 	\label{fig:1-2-2}
+ \end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+
+
+この画像も同様に左上のブロックが白くなっており、
+画像の情報の多くが低周波成分に集中していることが分かる。
+また、帽子とその影との境界や影と壁との境界や壁と空との境界部分に白い線が観察された。
+そして、これらの白い線は低周波領域で強く現れ、高周波領域へ移るにつれて徐々に薄くなっていた。
+よって、この画像の輪郭情報も主に低周波成分に含まれており、高周波成分の寄与は比較的小さいことが分かる。
+また，前画像と比較すると、斜め右下方向のサブバンドにも比較的強い成分が見られた。
+これは、本画像には帽子や影の輪郭など曲線的な構造が多く含まれており、
+建物画像に多く見られた水平・垂直方向の直線的な構造だけでは表現できないためと考えられる。
+そのため、縦方向成分と横方向成分の両方を含む周波数成分の寄与が大きくなったと考えられる。
+
+%%%%%%%%%%%%%%%%%%
+ \begin{figure}[H]
+ 	\centering
+ 	\begin{tabular}{cc}
+ 		%%%%%%%%%
+ 		\includegraphics[width=0.20\textwidth]{kodak003.png}&\hspace{+12pt}
+ 		\includegraphics[width=0.20\textwidth]{kodak003_DCT.png}
+ 		\vspace{-2pt}\\
+ 		%%%%%%%%%
+ 		(a) $\mathbf{X}$&\hspace{+12pt}
+ 		(b) $\mathbf{Y}$\\
+ 		%%%%%%%%%
+ 	\end{tabular}
+ 	\caption{入力画像とDCT後の出力画像(画像:kodak003)}
+ 	\label{fig:1-2-3}
+ \end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+この画像も同様に左上のブロックが白くなっており、画像の情報の多くが低周波成分に集中していることが分かる。
+また、バイクやライダーの輪郭、タイヤのスポーク部分などに対応する白い線が観察された。
+そして、高周波領域へ移るにつれて全体的な強度は小さくなっている。
+これまでの画像と比較すると、右側および下側のサブバンドにも比較的強い成分が見られた。
+これは、タイヤのスポークや車体の細かな部品など、高周波成分を多く含む構造が存在するためと考えられる。
+
+
 \subsection{画像の逆変換}
-\noindent
-\sizi{この節は\ref{sec:1-3}節を記述した者は必須。}
+
 
 ここに、\ref{sec:1-3}節の結果と考察を示す。
 図に、入力画像$\mathbf{X}$とそれをDCTした後に逆変換を行った出力画像$\mathbf{Z}$をそれぞれ示す。
-また、これら$\mathbf{X}$と$\mathbf{Z}$の絶対値総和誤差$L$は\rainn{}であった。
-\sizi{これらの図に対する考察を述べる。}
 
-\noindent
-\sizi{同様に、他の設定における結果の表示とそれに対する考察を述べる。}
 
 %%%%%%%%%%%%%%%%%%
-% \begin{figure}[t]
-% 	\centering
-% 	\begin{tabular}{cc}
-% 		%%%%%%%%%
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}
-% 		\vspace{-2pt}\\
-% 		%%%%%%%%%
-% 		(a) $\mathbf{X}$&\hspace{+12pt}
-% 		(b) $\mathbf{Z}$\\
-% 		%%%%%%%%%
-% 	\end{tabular}
-% 	\caption{入力画像とDCTの逆変換後の出力画像}
-% 	\label{fig:1-3-1}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{cc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_inverse.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{入力画像とDCTの逆変換後の出力画像(画像:kodak001)}
+	\label{fig:1-3-1}
+\end{figure}
 %%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{cc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak002.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak002_inverse.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{入力画像とDCTの逆変換後の出力画像(画像:kodak002)}
+	\label{fig:1-3-2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{cc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak003.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak003_inverse.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{入力画像とDCTの逆変換後の出力画像(画像:kodak003)}
+	\label{fig:1-3-3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+逆変換後の画像$\mathbf{Z}$は、入力画像$\mathbf{X}$と見た目にはほぼ一致していた。
+また、誤差$L$は1枚目で$1.78\times10^{-9}$，
+2枚目で$1.14\times10^{-9}$，
+3枚目で$1.65\times10^{-9}$となった。
+いずれも非常に小さい値であるため、DCT変換後に逆DCTを行うことで、
+元画像をほぼ完全に復元できたことが分かる。
+完全に0にならなかった理由は、計算機上で小数を扱う際の丸め誤差によるものと考えられる。
 
 \subsection{ガウシアンフィルタによる画像のぼかし}
 ここに、\ref{sec:2-1}節の結果と考察を示す。
-図に、$k=$\rainn{}と$\sigma=$\rainn{}におけるガウシアンフィルタの周波数振幅特性のグラフ$G$と入力画像$\mathbf{X}$、出力画像$\mathbf{Y}$をそれぞれ示す。
-\sizi{これらの図に対する考察を述べる。}
-
-\noindent
-\sizi{同様に、他の設定における結果の表示とそれに対する考察を述べる。}
+図に、$k=7$と$\sigma=4$におけるガウシアンフィルタの周波数振幅特性のグラフ$G$と入力画像$\mathbf{X}$、出力画像$\mathbf{Y}$をそれぞれ示す。
 
 %%%%%%%%%%%%%%%%%%
-% \begin{figure}[t]
-% 	\centering
-% 	\begin{tabular}{ccc}
-% 		%%%%%%%%%
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}
-% 		\vspace{-2pt}\\
-% 		%%%%%%%%%
-% 		(a) $G$&\hspace{+12pt}
-% 		(b) $\mathbf{X}$&\hspace{+12pt}
-% 		(c) $\mathbf{Y}$\\
-% 		%%%%%%%%%
-% 	\end{tabular}
-% 	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像}
-% 	\label{fig:2-1-1}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{freq_gauss1.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_blur1.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $G$&\hspace{+12pt}
+		(b) $\mathbf{X}$&\hspace{+12pt}
+		(c) $\mathbf{Y}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像($k=7$,$\sigma=4$)}
+	\label{fig:2-1-1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+周波数振幅特性より、0～0.2付近の周波数帯では振幅がほぼ0 dBに保たれており、
+この周波数帯の成分はほとんど減衰せずに通過していることが分かる。一方、
+それより高い周波数帯では、急激な谷が現れる箇所を除いて振幅が全体的に低下している。
+出力画像を見ると、入力画像と比較して全体的にうっすらとぼやけていることが確認できる。
+これは、4.2の実験結果からこの画像の主な成分が低周波領域に分布しているため、
+高周波成分のみが抑制されても画像全体の変化が小さいためであると考えられる。
+
+次に、$k=3$,$\sigma=1$と$k=15$,$\sigma=8$におけるガウシアンフィルタの周波数振幅特性のグラフ$G$と入力画像$\mathbf{X}$、出力画像$\mathbf{Y}$をそれぞれ示す。
+
+
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{freq_gaussk3s1.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_blurk3s1.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $G$&\hspace{+12pt}
+		(b) $\mathbf{X}$&\hspace{+12pt}
+		(c) $\mathbf{Y}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像($k=3$と$\sigma=1$)}
+	\label{fig:2-1-2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{freq_gaussk7s13.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_blurk7s13.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $G$&\hspace{+12pt}
+		(b) $\mathbf{X}$&\hspace{+12pt}
+		(c) $\mathbf{Y}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像($k=15$,$\sigma=8$)}
+	\label{fig:2-1-3}
+\end{figure}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%
