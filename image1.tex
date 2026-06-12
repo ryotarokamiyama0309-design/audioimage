@@ -361,32 +361,32 @@ $\mathbf{N}$の要素値は、各要素間において独立であり、ある�
 
 また、上記処理を以下の組み合わせで行う。
 \begin{itemize}
-	\item $k=7$、$\sigma=4$、画像kodak001。
-	\item $k=7$、$\sigma=2$、画像kodak001。
-	\item $k=7$、$\sigma=1$、画像kodak001。
+	\item $k=3$、$\sigma=1$、画像kodak001。
+	\item $k=15$、$\sigma=8$、画像kodak001。
+	\item $k=7$、$\sigma=13$、画像kodak001。
 \end{itemize}
 
 
 \subsection{画像のノイズとその除去}\label{sec:2-2}
-画像\rainn{}を読み込んで$\mathbf{X}$とし、画像の縦と横の画素数を確認する。
-次に、式(\ref{eq:Noise})（$\mu=0$）を基にして、ノイズの標準偏差$\sigma _n=$\rainn{}を用いてノイズ成分$\mathbf N$を算出し、ノイズあり画像$\mathbf{Y}=\mathbf{X}+\mathbf{N}$を算出する。
+画像kodak001を読み込んで$\mathbf{X}$とし、画像の縦と横の画素数を確認する。
+次に、式(\ref{eq:Noise})（$\mu=0$）を基にして、ノイズの標準偏差$\sigma _n=15$用いてノイズ成分$\mathbf N$を算出し、ノイズあり画像$\mathbf{Y}=\mathbf{X}+\mathbf{N}$を算出する。
 最後に、\ref{sec:2-1}節と同様の処理を行い、平滑化後の画像$\mathbf{Z}$を算出する。
 
-また、上記処理を以下の組み合わせで行う
+また、上記処理を以下の組み合わせで行う。
 \begin{itemize}
-	\item $k=$\rainn{}、$\sigma=$\rainn{}、$\sigma_n=$\rainn{}、画像\rainn{}。
-	\item $k=$\rainn{}、$\sigma=$\rainn{}、$\sigma_n=$\rainn{}、画像\rainn{}。
-	\item $k=$\rainn{}、$\sigma=$\rainn{}、$\sigma_n=$\rainn{}、画像\rainn{}。
-	\item $k=$\rainn{}、$\sigma=$\rainn{}、$\sigma_n=$\rainn{}、画像\rainn{}。
+	\item $k=5$、$\sigma=3$、$\sigma_n=15$、画像kodak001。
+	\item $k=3$、$\sigma=1$、$\sigma_n=15$、画像kodak001。
+	\item $k=$、$\sigma=$、$\sigma_n=$、画像。
+	\item $k=$、$\sigma=$、$\sigma_n=$、画像。
 \end{itemize}
 
 
 \subsection{ソーベルフィルタによる画像のエッジ検出}\label{sec:2-3}
 まず、\ref{sec:Highpassfilter}節を基にして、縦と横方向のソーベルフィルタ行列$\mathbf{S}_v$と$\mathbf{S}_h$をそれぞれ作成する。
 ここで、DFTを用いて$\mathbf{S}_h$の第一列ベクトルの周波数振幅特性を計算しグラフ$S$に表示する。
-最後に、画像\rainn{}を読み込んで$\mathbf{X}$とし、$\mathbf{X}$に$\mathbf{S}_v$と$\mathbf{S}_h$をそれぞれ畳み込み、フィルタリング後の出力画像$\mathbf{Y}_v$と$\mathbf{Y}_h$を算出する。
+最後に、画像kodak001を読み込んで$\mathbf{X}$とし、$\mathbf{X}$に$\mathbf{S}_v$と$\mathbf{S}_h$をそれぞれ畳み込み、フィルタリング後の出力画像$\mathbf{Y}_v$と$\mathbf{Y}_h$を算出する。
 
-また、上記処理を画像\rainn{}と画像\rainn{}において行う。
+また、上記処理を画像kodak002と画像kodak003において行う。
 
 
 \subsection{ラプラシアンフィルタによる画像のエッジ検出}\label{sec:2-4}
@@ -396,7 +396,7 @@ $\mathbf{N}$の要素値は、各要素間において独立であり、ある�
 
 また、ガウシアンフィルタを用いて同様に実現する。
 まず、\ref{sec:2-1}節と同様にガウシアンフィルタ$\mathbf{G}$を作成する。
-次に、画像\rainn{}を読み込んで$\mathbf{X}$とし、$\mathbf{X}$に$\mathbf{G}$を畳み込み、フィルタリング後の出力画像$\mathbf{Y}$を算出する。
+次に、画像kodak001を読み込んで$\mathbf{X}$とし、$\mathbf{X}$に$\mathbf{G}$を畳み込み、フィルタリング後の出力画像$\mathbf{Y}$を算出する。
 最後に、$\mathbf{Z}=\mathbf{X}-\mathbf{Y}$を計算する。
 その$\mathbf{Z}$をpng画像として保存する。
 
@@ -767,7 +767,7 @@ $\alpha=\frac{1}{8}\pi$では周波数が $1/8$ であるため、
 これは、4.2の実験結果からこの画像の主な成分が低周波領域に分布しているため、
 高周波成分のみが抑制されても画像全体の変化が小さいためであると考えられる。
 
-次に、$k=3$,$\sigma=1$と$k=15$,$\sigma=8$におけるガウシアンフィルタの周波数振幅特性のグラフ$G$と入力画像$\mathbf{X}$、出力画像$\mathbf{Y}$をそれぞれ示す。
+次に、$k=3$,$\sigma=1$と$k=15$,$\sigma=8$と$k=7$,$\sigma=13$におけるガウシアンフィルタの周波数振幅特性のグラフ$G$と入力画像$\mathbf{X}$、出力画像$\mathbf{Y}$をそれぞれ示す。
 
 
 %%%%%%%%%%%%%%%%%%
@@ -787,8 +787,30 @@ $\alpha=\frac{1}{8}\pi$では周波数が $1/8$ であるため、
 		(c) $\mathbf{Y}$\\
 		%%%%%%%%%
 	\end{tabular}
-	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像($k=3$と$\sigma=1$)}
+	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像($k=3$,$\sigma=1$)}
 	\label{fig:2-1-2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{freq_gaussk15s8.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_blurk15s8.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $G$&\hspace{+12pt}
+		(b) $\mathbf{X}$&\hspace{+12pt}
+		(c) $\mathbf{Y}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像($k=15$,$\sigma=8$)}
+	\label{fig:2-1-3}
 \end{figure}
 %%%%%%%%%%%%%%%%%%
 
@@ -809,101 +831,255 @@ $\alpha=\frac{1}{8}\pi$では周波数が $1/8$ であるため、
 		(c) $\mathbf{Y}$\\
 		%%%%%%%%%
 	\end{tabular}
-	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像($k=15$,$\sigma=8$)}
-	\label{fig:2-1-3}
+	\caption{ガウシアンフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像($k=7$,$\sigma=13$)}
+	\label{fig:2-1-4}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+$k=3,\sigma=1$の場合は高周波成分が比較的保持されており、
+出力画像でも石壁や窓枠などの細かな模様が残っていた。一方、
+$k=15,\sigma=8$の場合は高周波成分がより抑制され、
+出力画像では細部が平滑化されて強いぼかし効果が確認できた。
+また、$k=7,\sigma=13$の場合は、$k=7,\sigma=4$の場合と比較して
+周波数振幅特性および出力画像に大きな違いは見られなかった。これは、
+フィルタ長が固定されているため、$\sigma$を大きくしても平滑化効果の変化が小さかったためと考えられる。以上より，今回の実験では$\sigma$よりも$k$の変化の方が出力画像に与える影響が大きいことが分かった。
+
+\subsection{画像のノイズとその除去}
+ここに、\ref{sec:2-2}節の結果と考察を示す。
+図に、$k=5$と$\sigma=3$、$\sigma_n=15$における原画像$\mathbf{X}$とそのノイズあり画像$\mathbf{Y}$、ガウシアンフィルタによる平滑化後の出力画像$\mathbf{Z}$をそれぞれ示す。
+
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_noisys15k5s3}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_denoiseds15k5s3.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Y}$&\hspace{+12pt}
+		(c) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{原画像とノイズあり画像、ノイズ除去後の出力画像($k=5$,$\sigma=3$,$\sigma_n=15$)}
+	\label{fig:2-3-1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+入力画像に標準偏差15のガウスノイズを加えた結果、画像全体に細かな粒状のノイズが発生した。
+これに対して、サイズ5×5、標準偏差3のガウシアンフィルタを適用すると、
+画像は全体的に平滑化され、ぼやけた見た目となった。
+一方で、ノイズの強さが比較的小さいため、ノイズ除去効果は視覚的に分かりにくかった。
+
+次に$k=3$,$\sigma=1$、$\sigma_n=25$と$k=3$、$\sigma=1$、$\sigma_n=35$の場合の結果を示す。
+
+
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_noisys25k3s1}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_denoiseds25k3s1.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Y}$&\hspace{+12pt}
+		(c) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{原画像とノイズあり画像、ノイズ除去後の出力画像($k=3$,$\sigma=1$,$\sigma_n=25$)}
+	\label{fig:2-3-2}
 \end{figure}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%
 
-
-\subsection{画像のノイズとその除去}
-ここに、\ref{sec:2-2}節の結果と考察を示す。
-図に、$k=$\rainn{}と$\sigma=$\rainn{}、$\sigma_n=$\rainn{}における原画像$\mathbf{X}$とそのノイズあり画像$\mathbf{Y}$、ガウシアンフィルタによる平滑化後の出力画像$\mathbf{Z}$をそれぞれ示す。
-\sizi{これらの図に対する考察を述べる。}
-
-\noindent
-\sizi{同様に、他の設定における結果の表示とそれに対する考察を述べる。}
-
 %%%%%%%%%%%%%%%%%%
-% \begin{figure}[t]
-% 	\centering
-% 	\begin{tabular}{ccc}
-% 		%%%%%%%%%
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}
-% 		\vspace{-2pt}\\
-% 		%%%%%%%%%
-% 		(a) $\mathbf{X}$&\hspace{+12pt}
-% 		(b) $\mathbf{Y}$&\hspace{+12pt}
-% 		(c) $\mathbf{Z}$\\
-% 		%%%%%%%%%
-% 	\end{tabular}
-% 	\caption{原画像とノイズあり画像、ノイズ除去後の出力画像}
-% 	\label{fig:2-3-1}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_noisys35k3s1}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_denoiseds35k3s1.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Y}$&\hspace{+12pt}
+		(c) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{原画像とノイズあり画像、ノイズ除去後の出力画像($k=3$,$\sigma=1$,$\sigma_n=35$)}
+	\label{fig:2-3-3}
+\end{figure}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%
+サイズ3×3、標準偏差1のガウシアンフィルタを適用した結果、
+ノイズはわずかに低減されたものの、その変化は大きくなかった。
+入力画像に標準偏差35のガウスノイズを加えた結果、図\ref{fig:2-3-2}よりも
+強い粒状ノイズが発生した。これに対して、サイズ3×3、標準偏差1のガウシアンフィルタを適用すると、
+ノイズはある程度低減されたことが確認できた。しかし、平滑化の強さが小さいためノイズを完全に除去する
+ことはできず、一部のノイズは残存した。
+
 \subsection{ソーベルフィルタによる画像のエッジ検出}
 ここに、\ref{sec:2-3}節の結果と考察を示す。
 図に、ソーベルフィルタの周波数振幅特性$S$と入力画像$\mathbf{X}$、$\mathbf{X}$に縦と横方向のソーベルフィルタを適用した出力画像$\mathbf{S}_v$と$\mathbf{S}_h$をそれぞれ示す。
-\sizi{これらの図に対する考察を述べる。}
-
-\noindent
-\sizi{同様に、他の設定における結果の表示とそれに対する考察を述べる。}
 
 %%%%%%%%%%%%%%%%%%
-% \begin{figure}[t]
-% 	\centering
-% 	\begin{tabular}{cccc}
-% 		%%%%%%%%%
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}
-% 		\vspace{-2pt}\\
-% 		%%%%%%%%%
-% 		(a) $S$&\hspace{+12pt}
-% 		(b) $\mathbf{X}$&\hspace{+12pt}
-% 		(c) $\mathbf{S}_{v}$&\hspace{+12pt}
-% 		(d) $\mathbf{S}_{h}$\\
-% 		%%%%%%%%%
-% 	\end{tabular}
-% 	\caption{ソーベルフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像}
-% 	\label{fig:2-2-1}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{cccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{freq_sobel1.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_sobel_v1.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_sobel_h1.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $S$&\hspace{+12pt}
+		(b) $\mathbf{X}$&\hspace{+12pt}
+		(c) $\mathbf{S}_{v}$&\hspace{+12pt}
+		(d) $\mathbf{S}_{h}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{ソーベルフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像}
+	\label{fig:2-2-1}
+\end{figure}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{cccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{freq_sobel2.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak002.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak002_sobel_v1.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak002_sobel_h1.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $S$&\hspace{+12pt}
+		(b) $\mathbf{X}$&\hspace{+12pt}
+		(c) $\mathbf{S}_{v}$&\hspace{+12pt}
+		(d) $\mathbf{S}_{h}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{ソーベルフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像}
+	\label{fig:2-2-2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{cccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{freq_sobel3.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak003.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak003_sobel_v1.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak003_sobel_h1.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $S$&\hspace{+12pt}
+		(b) $\mathbf{X}$&\hspace{+12pt}
+		(c) $\mathbf{S}_{v}$&\hspace{+12pt}
+		(d) $\mathbf{S}_{h}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{ソーベルフィルタの周波数振幅特性と画像に適用した場合の入力と出力画像}
+	\label{fig:2-2-3}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+Sobelフィルタの周波数振幅特性を見ると、正規化周波数 0 および 1 付近では振幅が小さく、
+中央付近で最大となっている。これは低周波成分を抑制し、画像中の急激な輝度変化に対応する
+高周波成分を強調する特性を持つことを示している。そのため、平坦な領域よりも輪郭部分が強調される。
+また、画像に適用した結果を見ると、建物の窓枠や壁面の境界、自転車のスポークや車輪の輪郭など、
+輝度変化の大きい部分が白く抽出されていることが確認できる。横方向Sobelフィルタでは水平方向の
+エッジが強調され、縦方向Sobelフィルタでは垂直方向のエッジが強調されている。例えば、建物画像では
+横方向Sobelフィルタによって窓の上下端やレンガの横線が強調され、縦方向Sobelフィルタでは窓枠やドア
+の縦線が強調されている。
+
+
 \subsection{ラプラシアンフィルタによる画像のエッジ検出}
 ここに、\ref{sec:2-4}節の結果と考察を示す。
 図に、入力画像$\mathbf{X}$と$\mathbf{X}$にラプラシアンフィルタを適用した出力画像$\mathbf{Y}$、ガウシアンフィルタによるラプラシアンフィルタリングの近似処理後の出力画像$\mathbf{Z}$をそれぞれ示す。
-ここで、ガウシアンフィルタは$k=$\rainn{}と$\sigma=$\rainn{}で設計した。
+ここで、ガウシアンフィルタは$k=7$と$\sigma=4$で設計した。
 \sizi{これらの図に対する考察を述べる。}
 
 \noindent
 \sizi{同様に、他の設定における結果の表示とそれに対する考察を述べる。}
 
 %%%%%%%%%%%%%%%%%%
-% \begin{figure}[t]
-% 	\centering
-% 	\begin{tabular}{ccc}
-% 		%%%%%%%%%
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}&\hspace{+12pt}
-% 		\includegraphics[width=0.20\textwidth]{./figure/aa_jFigure.pdf}
-% 		\vspace{-2pt}\\
-% 		%%%%%%%%%
-% 		(a) $\mathbf{X}$&\hspace{+12pt}
-% 		(b) $\mathbf{Y}$&\hspace{+12pt}
-% 		(c) $\mathbf{Z}$\\
-% 		%%%%%%%%%
-% 	\end{tabular}
-% 	\caption{入力画像とラプラシアンフィルタリング後の出力画像、ガウシアンフィルタリングによる近似処理後の出力画像}
-% 	\label{fig:2-4-1}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak001.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_laplacian.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak001_highpass.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Y}$&\hspace{+12pt}
+		(c) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{入力画像とラプラシアンフィルタリング後の出力画像、ガウシアンフィルタリングによる近似処理後の出力画像}
+	\label{fig:2-4-1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak002.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak002_laplacian.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak002_highpass.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Y}$&\hspace{+12pt}
+		(c) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{入力画像とラプラシアンフィルタリング後の出力画像、ガウシアンフィルタリングによる近似処理後の出力画像}
+	\label{fig:2-4-1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		%%%%%%%%%
+		\includegraphics[width=0.20\textwidth]{kodak003.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak003_laplacian.png}&\hspace{+12pt}
+		\includegraphics[width=0.20\textwidth]{kodak003_highpass.png}
+		\vspace{-2pt}\\
+		%%%%%%%%%
+		(a) $\mathbf{X}$&\hspace{+12pt}
+		(b) $\mathbf{Y}$&\hspace{+12pt}
+		(c) $\mathbf{Z}$\\
+		%%%%%%%%%
+	\end{tabular}
+	\caption{入力画像とラプラシアンフィルタリング後の出力画像、ガウシアンフィルタリングによる近似処理後の出力画像}
+	\label{fig:2-4-1}
+\end{figure}
 %%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%
